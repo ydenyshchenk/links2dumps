@@ -54,16 +54,13 @@ $url = '';
 if (!empty($_POST['data'])) {
     $data = $_POST['data'];
 }
+
+$colors = array(0, 1, 2, 3, 4, 5, 6);
+shuffle($colors);
 ?>
-            <div class="rainbow0">
+            <div class="rainbow">
                 <div class="rainbow-parts">
-                    <div class="rainbow-part color0"></div>
-                    <div class="rainbow-part color1"></div>
-                    <div class="rainbow-part color2"></div>
-                    <div class="rainbow-part color3"></div>
-                    <div class="rainbow-part color4"></div>
-                    <div class="rainbow-part color5"></div>
-                    <div class="rainbow-part color6"></div>
+                    <?php foreach ($colors as $color) { echo '<div class="rainbow-part color' . $color . '"></div>'; }?>
                 </div>
                 <div class="rainbow-content">
 
