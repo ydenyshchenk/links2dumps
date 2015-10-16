@@ -14,22 +14,33 @@
         h2 {font-size: larger; line-height: 2;}
         .error {color: #BE4C39;}
 
-        .rainbow {
-            border-radius: 15px;
-            display: inline-block;
-            padding: 20px;
-            border-width: 3px;
-
-            border-image: -webkit-linear-gradient(left, #E18728, #BE4C39 33%, #9351A6 66%, #4472B9,#4CA454,#D49B00) 2%;
-            border-image: -ms-linear-gradient(left, #E18728, #BE4C39 33%, #9351A6 66%, #4472B9,#4CA454,#D49B00) 2%;
-            border-image: -moz-linear-gradient(left, #E18728, #BE4C39 33%, #9351A6 66%, #4472B9,#4CA454,#D49B00) 2%;
-        }
         table.centerize, table.centerize tr, table.centerize td {
             text-align: center;
             vertical-align: middle;
             width: 100%;
             height: 100%;
         }
+
+        .color0 {background-color: #BE4C39;}
+        .color1 {background-color: #E18728;}
+        .color2 {background-color: #d4be2d;}
+        .color3 {background-color: #4CA454;}
+        .color4 {background-color: #4472B9;}
+        .color5 {background-color: #1337cb;}
+        .color6 {background-color: #9351A6;}
+        .rainbow {
+            min-width: 100px;
+            min-height: 10px;
+            position: relative;
+            border-radius: 15px;
+            display: inline-block;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .rainbow .rainbow-parts {position: absolute; top:0; width: 100%; height: 100%; z-index: -1;}
+        .rainbow-part {width: 14.3%; float: left; height: 100%;}
+        .rainbow .rainbow-part:last-child {width: auto; float: none}
+        .rainbow-content {margin: 5px; background-color: #fff; border-radius: 10px; padding: 20px;}
     </style>
 </head>
 <body>
@@ -44,10 +55,25 @@ if (!empty($_POST['data'])) {
     $data = $_POST['data'];
 }
 ?>
+            <div class="rainbow0">
+                <div class="rainbow-parts">
+                    <div class="rainbow-part color0"></div>
+                    <div class="rainbow-part color1"></div>
+                    <div class="rainbow-part color2"></div>
+                    <div class="rainbow-part color3"></div>
+                    <div class="rainbow-part color4"></div>
+                    <div class="rainbow-part color5"></div>
+                    <div class="rainbow-part color6"></div>
+                </div>
+                <div class="rainbow-content">
+
 <form method="post">
     <input type="text" name="data" value="<?php echo $data;?>" placeholder="/home/support/dev/... or http://sparta....">
     <input type="submit" value="Go!">
 </form>
+
+                </div>
+            </div>
 
 <?php
 function getDumpFiles($dir)
