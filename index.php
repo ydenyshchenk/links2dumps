@@ -29,9 +29,9 @@ if (!empty($_POST['dir'])) {
 }
 
 ?>
-<form method="post" class="rainbow">
+<form method="post">
     <input type="text" name="dir" value="<?php echo $dir;?>" placeholder="/home/support/dev/... or /mnt/data/home/...">
-    <input type="submit">
+    <input type="submit" value="Go!">
 </form>
 
 <?php
