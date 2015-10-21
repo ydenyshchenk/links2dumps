@@ -21,13 +21,13 @@
             height: 100%;
         }
 
-        .color0 {background-color: #BE4C39;}
-        .color1 {background-color: #E18728;}
-        .color2 {background-color: #d4be2d;}
-        .color3 {background-color: #4CA454;}
-        .color4 {background-color: #4472B9;}
-        .color5 {background-color: #1337cb;}
-        .color6 {background-color: #9351A6;}
+        .color0 {background-color: #ff0000;}
+        .color1 {background-color: #ff7f00;}
+        .color2 {background-color: #ffff00;}
+        .color3 {background-color: #05ff00;}
+        .color4 {background-color: #5ac8ff;}
+        .color5 {background-color: #4472B9;}
+        .color6 {background-color: #ff9eb1;}
         .rainbow {
             min-width: 100px;
             min-height: 10px;
@@ -119,6 +119,9 @@ if (!empty($data)) {
 
         echo '<h2>';
         $files = getDumpFiles($dir);
+        if (!$files) {
+            dataError('There is no any dumps here: <a href="' . $urlPrefix . '">' . $urlPrefix . '</a>');
+        }
         foreach ($files as $file) {
             $url = $urlPrefix . $file;
             echo '<div><a href="' . $url . '">' . $url . '</a></div>';
