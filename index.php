@@ -104,16 +104,38 @@ if (!empty($data)) {
         if ($c < 3) {
             dataError();
         }
+
+        $prefix = '';
+        $devDir = '';
+        $user = '';
+        foreach ($pathTree as $i => $node) {
+            if (!$prefix && preg_match('/^(home|users)$/ui', $node)) {
+                $prefix = $node;
+            } elseif ($prefix && !$user && !$devDir) {
+                $user = $node;
+            } elseif ($prefix && $user && !$devDir && preg_match('/^(dev|sites)$/ui', $node)) {
+                $devDir = $node;
+            }
+            unset($pathTree[$i]);
+
+            if ($prefix && $user && $devDir) {
+                break;
+            }
+        }
+
+        /*
         $prefix = $pathTree[$c - 3];
         $user = $pathTree[$c - 2];
         $devDir = $pathTree[$c - 1];
         $project = $pathTree[$c];
+        */
 
         $urlParts = array(
             'devDir' => $devDir,
             'user' => $user,
-            'project' => $project
         );
+
+        $urlParts = array_merge($urlParts, $pathTree);
 
         $urlPrefix = $host . implode('/', $urlParts) . '/';
 
