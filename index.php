@@ -150,7 +150,8 @@ if (!empty($data)) {
         }
         echo '</h2>';
     } else if (preg_match('/^http(s){0,1}\:\/\//', $data)) {
-        $url = $data;
+        $url = $urlPrefix = $data;
+        $urlPrefix = trim($urlPrefix, '/') . '/';
         $url = preg_replace('/^http(s){0,1}\:\/\//', '', $url);
         $urlParts = explode('/', trim($url, '/'));
         $c = count($urlParts);
@@ -175,7 +176,8 @@ if (!empty($data)) {
             $files = getDumpFiles($dir);
             if ($files) {
                 foreach ($files as $file) {
-                    echo '<div><a>' . $dir . $file . '</a></div>';
+                    $url = $urlPrefix . $file;
+                    echo '<div><a href="' . $url . '">' . $dir . $file . '</a></div>';
                 }
             } else {
                 dataError('There is no any dumps here: ' . $dir);
