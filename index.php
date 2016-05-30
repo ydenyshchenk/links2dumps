@@ -81,7 +81,7 @@ function getDumpFiles($dir)
     }
     $scandir = scandir($dir);
     foreach ($scandir as $file) {
-        if (preg_match('/\.gz$/', $file)) {
+        if (preg_match('/\.(tgz|gz|zip)$/', $file)) {
             $result[] = $file;
         }
     }
