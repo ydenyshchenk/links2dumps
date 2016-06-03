@@ -9,6 +9,7 @@
         a {color: #6495ed; text-decoration: none;}
         a:hover {text-decoration: underline;}
         input {line-height: 1.5; font-size: larger; padding: 10px; border-radius: 15px; box-shadow: none; border: 1px solid #ddd;}
+        input:hover {outline: none;}
         input[type=text] {width: 600px;}
         input[type=submit] {width: auto; background: none; cursor: pointer;}
         h2 {font-size: larger; line-height: 2;}
