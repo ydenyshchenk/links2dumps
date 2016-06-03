@@ -65,7 +65,7 @@ shuffle($colors);
                 <div class="rainbow-content">
 
 <form method="post">
-    <input type="text" name="data" value="<?php echo $data;?>" placeholder="/home/support/dev/... or http://sparta....">
+    <input type="text" name="data" autofocus="autofocus" value="<?php echo $data;?>" placeholder="/home/support/dev/... or http://sparta....">
     <input type="submit" value="Go!">
 </form>
 
