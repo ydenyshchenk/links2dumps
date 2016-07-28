@@ -74,30 +74,48 @@ shuffle($colors);
             </div>
 
 <?php
+
+function getAllFiles($dir)
+{
+    $scandir = array();
+    if (!is_dir($dir)) {
+        return $scandir;
+    }
+    $scandir = scandir($dir);
+    if (!empty($scandir)) {
+        $scandir = preg_replace('/^\.+([a-z]{0,})/i', '', $scandir);
+        $scandir = array_filter($scandir);
+    }
+    return $scandir;
+}
+
 function getDumpFiles($dir)
 {
     $result = array();
-    if (!is_dir($dir)) {
-        return $result;
-    }
-    $scandir = scandir($dir);
-    foreach ($scandir as $file) {
-        if (preg_match('/\.(tgz|gz|zip)$/', $file)) {
-            $result[] = $file;
+    $scandir = getAllFiles($dir);
+    if (!empty($scandir)) {
+        foreach ($scandir as $file) {
+            if (preg_match('/\.(tgz|gz|zip|sql)$/', $file)) {
+                $result[] = $file;
+            }
         }
     }
     return $result;
 }
 
-function dataError($error = 'Files are not exist! Please try again...')
+function dataError($error = 'Files are not exist! Please try again...', $withExit = true)
 {
     echo '<h2 class="error">' . $error . '</h2>';
-    exit();
+    if ($withExit) {
+        exit();
+    }
 }
 
+$data = trim($data);
 if (!empty($data)) {
     if (is_dir($data)) {
         $dir = $data;
+        $dir = DS . trim($dir, DS) . DS;
         $host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
         $pathTree = explode('/', trim($dir, '/'));
         $pathTree = array_filter($pathTree, 'strlen');
@@ -124,13 +142,6 @@ if (!empty($data)) {
             }
         }
 
-        /*
-        $prefix = $pathTree[$c - 3];
-        $user = $pathTree[$c - 2];
-        $devDir = $pathTree[$c - 1];
-        $project = $pathTree[$c];
-        */
-
         $urlParts = array(
             'devDir' => $devDir,
             'user' => $user,
@@ -142,12 +153,19 @@ if (!empty($data)) {
 
         echo '<h2>';
         $files = getDumpFiles($dir);
-        if (!$files) {
+        if ($files) {
+            foreach ($files as $file) {
+                $url = $urlPrefix . $file;
+                echo '<div><a href="' . $url . '">' . $url . '</a></div>';
+            }
+        } elseif ($files = getAllFiles($dir)) {
+            dataError('There is no any dumps here: ' . $dir . ', but we found some files:', false);
+            foreach ($files as $file) {
+                $url = $urlPrefix . $file;
+                echo '<div><a href="' . $url . '">' . $dir . $file . '</a></div>';
+            }
+        } else {
             dataError('There is no any dumps here: <a href="' . $urlPrefix . '">' . $urlPrefix . '</a>');
-        }
-        foreach ($files as $file) {
-            $url = $urlPrefix . $file;
-            echo '<div><a href="' . $url . '">' . $url . '</a></div>';
         }
         echo '</h2>';
     } else if (preg_match('/^http(s){0,1}\:\/\//', $data)) {
@@ -176,6 +194,13 @@ if (!empty($data)) {
             echo '<h2>';
             $files = getDumpFiles($dir);
             if ($files) {
+                foreach ($files as $file) {
+                    $url = $urlPrefix . $file;
+                    echo '<div><a href="' . $url . '">' . $dir . $file . '</a></div>';
+                }
+
+            } elseif ($files = getAllFiles($dir)) {
+                dataError('There is no any dumps here: ' . $dir . ', but we found some files:', false);
                 foreach ($files as $file) {
                     $url = $urlPrefix . $file;
                     echo '<div><a href="' . $url . '">' . $dir . $file . '</a></div>';
