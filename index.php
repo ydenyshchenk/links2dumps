@@ -52,8 +52,8 @@ define("DS", DIRECTORY_SEPARATOR);
 $data = '';
 $dir = '';
 $url = '';
-if (!empty($_POST['data'])) {
-    $data = $_POST['data'];
+if (!empty($_REQUEST['data'])) {
+    $data = $_REQUEST['data'];
 }
 
 $colors = array(0, 1, 2, 3, 4, 5, 6);
