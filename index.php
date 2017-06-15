@@ -69,7 +69,7 @@ $imageRainbowDash = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAJ4CAYAA
         .style3 {background-image: url(<?php echo $imageTrollface; ?>); background-position: 50% 25%; background-repeat: no-repeat;}
     </style>
 </head>
-<body class="style<?php echo rand(1,4)?>">
+<body class="style<?php echo rand(0,5)?>">
 <table class="centerize">
     <tr><td>
 <?php
